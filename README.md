@@ -1,6 +1,6 @@
 # Chance-Constrained Sequential Convex Programming
 
-This repository accompanies our ECC 2020 paper *[Chance-constrained sequential convex programming for robust trajectory optimization](http://asl.stanford.edu/wp-content/papercite-data/pdf/Lew.Bonalli.Pavone.ECC20.pdf)*: an algorithm for uncertainty-aware trajectory planning.
+This repository accompanies our ECC 2020 paper *[Chance-Constrained Sequential Convex Programming for Robust Trajectory Optimization](http://asl.stanford.edu/wp-content/papercite-data/pdf/Lew.Bonalli.Pavone.ECC20.pdf)*: an algorithm for uncertainty-aware trajectory planning.
 
 
 <p align="center">
@@ -33,7 +33,6 @@ We provide examples for an uncertain free-flyer system and for the *[Astrobee](h
 
 ## Citation
 
-Please consider citing the corresponding publication if you use this work in an academic context:
 ```
 @inproceedings{lew2020ccscp,
   title={Chance-Constrained Sequential Convex Programming for Robust Trajectory Optimization},
