@@ -1,0 +1,6 @@
+numpy
+scipy
+sympy
+
+matplotlib==3.0.3
+osqp
