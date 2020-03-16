@@ -36,8 +36,8 @@ We report average computation times below, measured on a laptop equipped with an
 
 | Total Time (Nb. SCP Iters) / Avg. |  N = 35 | N = 30 | N = 25 | N = 20 |
 | :---: | :---: | :---: | :---: | :---: |
-| Freeflyer (nonlin., CoM offset, 4 obs.) | 0.174s (3) / 58ms | 0.152s (3) / 51ms | 0.126s (3) / 42ms | 0.104s (3) / 35ms |
-| Astrobee (ISS environment, 30 obs.) | 3.66s (6) / 0.61s | 2.40s (5) / 0.48s | 1.91s (5) / 0.38s | 1.53s (5) / 0.31s |
+| Freeflyer (CoM offset, 4 obs.) |174ms (3) / 58ms|152ms (3) / 51ms|126ms (3) / 42ms|104ms (3) / 35ms|
+|Astrobee (ISS env., 30 obs.)|3.66s (6) / 0.61s|2.40s (5) / 0.48s|1.91s (5) / 0.38s|1.53s (5) / 0.31s|
 
 
 ## Citation
