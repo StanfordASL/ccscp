@@ -31,6 +31,15 @@ We provide examples for an uncertain free-flyer system and for the *[Astrobee](h
 	python astrobee_script.py
 ```
 
+### Demo
+We report computation times below, measured on a laptop equipped with an Intel Core i7-6700 CPU at 2.60GHz with 8GB of RAM.
+
+| Computation Time (Nb. SCP Iters) / Average |  N = 35 | N = 30 | N = 25 | N = 20 |
+| :---: | :---: | :---: | :---: | :---: |
+| Freeflyer (nonlinear., CoM offset, 4 obstacles) | 0.174s (3) / 58ms | 0.152s (3) / 51ms | 0.126s (3) / 42ms | 0.104s (3) / 35ms |
+| Astrobee (ISS environment with 30 obstacles) | 3.66s (6) / 0.61s | 2.40s (5) / 0.48s | 1.91s (5) / 0.38s | 1.53s (5) / 0.31s |
+
+
 ## Citation
 
 ```
