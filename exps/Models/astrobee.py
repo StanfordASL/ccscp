@@ -77,7 +77,6 @@ class Model:
         "NB_SCP_iter_max":       20
     }
 
-
     def __init__(self, mJ_true=np.array([None])):
         print('[astrobee.py::__init__] Initializing Astrobee.')
         
@@ -283,8 +282,7 @@ class Model:
                                     [n_x,n_x, N]
                  - Vars_dxu - Gradients of vars. along traj 
                                 [n_x,n_x, N,n_xu, N]
-                                where last dimension is time,
-
+                                where last dimension is time
         """
         if self.B_feedback:
             K_fbs = self.compute_feedback_gains(A_all, B_all)
@@ -346,7 +344,11 @@ class Model:
 
     def initialize_trajectory(self, N):
         """
-            Straight-line initialization of the trajectory
+            Straight-line initialization of the trajectory.
+
+            Inputs:  - N : ()
+            Outputs: - X : (n_x,  N ) - linearly interpolated from x_init to x_final
+                     - U : (n_x, N-1) - zero controls
         """
         X = np.empty(shape=[self.n_x, N])
         U = np.empty(shape=[self.n_u, N-1])
@@ -508,9 +510,9 @@ class Model:
             dist_prev, pos = signed_distance_with_closest_point_on_surface(x_p, obs)
             n_prev = (x_p-obs.c[:n_p]) / np.linalg.norm((x_p-obs.c[:n_p]),2)
             # if dist_prev>=0.:
-            #     n_prev = (x_p-pos) / np.linalg.norm((x_p-pos),2)       # (2,)
+            #     n_prev = (x_p-pos) / np.linalg.norm((x_p-pos),2)
             # else:
-            #     n_prev = -(x_p-pos) / np.linalg.norm((x_p-pos),2)       # (2,)
+            #     n_prev = -(x_p-pos) / np.linalg.norm((x_p-pos),2)
 
             # deterministic part
             b = dist_prev - n_prev@x_p - (self.robot_radius) 

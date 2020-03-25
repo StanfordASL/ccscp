@@ -65,7 +65,6 @@ class Model:
         "NB_SCP_iter_max":       30
     }
 
-
     def __init__(self):
         print('[freeflyer::__init__] Initializing freeflyer.')
 
@@ -107,7 +106,6 @@ class Model:
         # f[3, 0] = (1./m) * u[0, 0]
         # f[4, 0] = (1./m) * u[1, 0]
         # f[5, 0] = (1./J) * u[2, 0]
-
 
         # Center of mass offset, Control of forces in Body frame
         p0       = np.array([0.05,0.05])
@@ -205,7 +203,7 @@ class Model:
                                     [n_x,n_x, N]
                  - Vars_dxu - Gradients of vars. along traj 
                                 [n_x,n_x, N,n_xu, N]
-                                where last dimension is time,
+                                where last dimension is time
         """
         if self.B_feedback:
             raise NotImplementedError('Variance with feedback not implemented.')
@@ -253,8 +251,13 @@ class Model:
 
     def initialize_trajectory(self, N):
         """
-            Straight-line initialization of the trajectory
+            Straight-line initialization of the trajectory.
+
+            Inputs:  - N : ()
+            Outputs: - X : (n_x,  N ) - linearly interpolated from x_init to x_final
+                     - U : (n_x, N-1) - zero controls
         """
+
         X = np.empty(shape=[self.n_x, N])
         U = np.empty(shape=[self.n_u, N-1])
 

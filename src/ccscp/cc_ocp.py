@@ -429,9 +429,6 @@ class CCOCP:
                 self.all_V = np.stack(all_V.copy())
                 return False
 
-            # Check obstacle constraints
-            # B_constraints_satisfied = self.check_obs_avoidance_constraints_satisfied(m, X_sol)
-
             # check trust region
             Xp, Up = self.par['X_last'].copy(), self.par['U_last'].copy()
             print('np.linalg.norm(X_sol-Xp,2) = ' + str(np.linalg.norm(X_sol-Xp,2)))
