@@ -206,7 +206,6 @@ class Model:
                  - Vars_dxu - Gradients of vars. along traj 
                                 [n_x,n_x, N,n_xu, N]
                                 where last dimension is time,
-
         """
         if self.B_feedback:
             raise NotImplementedError('Variance with feedback not implemented.')
@@ -316,7 +315,7 @@ class Model:
             if self.B_feedback:
                 raise NotImplementedError('Variance with feedback not implemented.')
 
-            delta_x = ((1-self.prob)/(2.*n_x)) # min and max constraints
+            delta_x = (1-self.prob)/(2.*n_x) # min and max constraints
             Phi_x   = p_th_quantile_cdf_normal(1-delta_x)
 
             for k in range(N):
@@ -326,15 +325,14 @@ class Model:
                     for i in range(n_x):
                         idx = k*(n_x+n_u) + i
 
-
                         aSa     = np.sqrt(Sk[i,i])
                         aSa_dxu = Sk_dxu[i,i,:,:]
 
-                        A[idx, :,:]    += Phi_x * ( 1./(2.*aSa) ) * aSa_dxu
+                        A[idx, :,:] += Phi_x * ( 1./(2.*aSa) ) * aSa_dxu
 
                         asadxu_sum = np.einsum('nd,dn->',aSa_dxu,XUj)
 
-                        l[idx] += Phi_x * (-aSa + ( 1./(2.*aSa) )*asadxu_sum )
+                        l[idx] += Phi_x * ( aSa + ( 1./(2.*aSa) )*asadxu_sum )
                         u[idx] += Phi_x * (-aSa + ( 1./(2.*aSa) )*asadxu_sum )
 
         return A, l, u
@@ -402,8 +400,6 @@ class Model:
         # deterministic part
         A         = np.zeros([N, n_x+n_u])
         A[k,:n_p] = -n_prev
-
-
 
         # with uncertainy
         if B_uncertainty:

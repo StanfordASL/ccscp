@@ -407,7 +407,7 @@ class Model:
 
         # with uncertainy
         if B_uncertainty:
-            delta_x = ((1-self.prob)/(2.*n_x))  # min and max constraints
+            delta_x = (1-self.prob)/(2.*n_x)  # min and max constraints
             Phi_x   = p_th_quantile_cdf_normal(1-delta_x)
 
             for k in range(N):
@@ -417,19 +417,18 @@ class Model:
                     for i in range(n_x):
                         idx = k*(n_x+n_u) + i
 
-
                         aSa     = np.sqrt(Sk[i,i])
                         aSa_dxu = Sk_dxu[i,i,:,:]
 
-                        A[idx, :,:]    += Phi_x * ( 1./(2.*aSa) ) * aSa_dxu
+                        A[idx, :,:] += Phi_x * ( 1./(2.*aSa) ) * aSa_dxu
 
                         asadxu_sum = np.einsum('nd,dn->',aSa_dxu,XUj)
 
-                        l[idx] += Phi_x * (-aSa + ( 1./(2.*aSa) )*asadxu_sum )
+                        l[idx] += Phi_x * ( aSa + ( 1./(2.*aSa) )*asadxu_sum )
                         u[idx] += Phi_x * (-aSa + ( 1./(2.*aSa) )*asadxu_sum )
 
             if self.B_feedback:
-                delta_u = ((1-self.prob)/(2.*n_u))  # min and max constraints
+                delta_u = (1-self.prob)/(2.*n_u)  # min and max constraints
                 Phi_u   = p_th_quantile_cdf_normal(1-delta_u)
 
                 for k in range(N):
@@ -446,11 +445,11 @@ class Model:
                             aSa     = np.sqrt(Sk[i,i])
                             aSa_dxu = Sk_dxu[i,i,:,:]
 
-                            A[idx, :,:]    += Phi_u * ( 1./(2.*aSa) ) * aSa_dxu
+                            A[idx, :,:] += Phi_u * ( 1./(2.*aSa) ) * aSa_dxu
 
                             asadxu_sum = np.einsum('nd,dn->',aSa_dxu,XUj)
 
-                            l[idx] += Phi_u * (-aSa + ( 1./(2.*aSa) )*asadxu_sum )
+                            l[idx] += Phi_u * ( aSa + ( 1./(2.*aSa) )*asadxu_sum )
                             u[idx] += Phi_u * (-aSa + ( 1./(2.*aSa) )*asadxu_sum )
 
         return A, l, u
