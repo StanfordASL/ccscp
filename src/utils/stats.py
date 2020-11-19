@@ -48,3 +48,31 @@ def percentage_in_ellipse(Xs, mu, Q):
         raise ValueError("Xs (%d,%d), mu (%d) and Q (%d,%d) must be the same size" %(Xs.shape[0], Xs.shape[1], mu.size, Q.shape[0], Q.shape[1]))
         
     return count_nb_in_ellipse(Xs, mu, Q) / Xs.shape[0]
+
+def sample_pts_unit_ball(dim, NB_pts):
+    """
+    Uniformly samples points in a d-dimensional sphere (in a ball)
+    Points characterized by    ||x||_2 < 1
+    arguments:  dim    - nb of dimensions
+                NB_pts - nb of points
+    output:     pts    - points sampled uniformly in ball [xdim x NB_pts]
+    Reference: http://extremelearning.com.au/how-to-generate-uniformly-random-points-on-n-spheres-and-n-balls/
+    """
+    us    = np.random.normal(0,1,(dim,NB_pts))
+    norms = np.linalg.norm(us, 2, axis=0)
+    rs    = np.random.random(NB_pts)**(1.0/dim)
+    pts   = rs*us / norms
+    return pts
+    
+def sample_pts_in_ellispoid(mu, Q, NB_pts):
+    """
+    Uniformly samples points in an ellipsoid, specified as
+            (xi-mu)^T Q^{-1} (xi-mu) <= 1
+    arguments: mu - mean [dim]
+                Q - Q [dim x dim]
+    output:     pts - points sampled uniformly in ellipsoid [xdim x NB_pts]
+    """
+    xs = sample_pts_unit_ball(mu.shape[0], NB_pts)
+    E  = np.linalg.cholesky(Q)
+    ys = (np.array(E@xs).T + mu).T
+    return ys
