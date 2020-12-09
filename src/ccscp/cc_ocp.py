@@ -58,7 +58,6 @@ class CCOCP:
         self.model   = model
         self.problem = problem
 
-        # TODO REMOVE AND REPLACE WITH ZERO UNCERTAITNY
         self.Q0 = problem.Q0
 
         # OSQP problem object
@@ -283,15 +282,6 @@ class CCOCP:
         leq = self.problem.x_init
         ueq = leq
         return Aeq, leq, ueq
-
-    # def get_final_constraints_coeffs(self, m):
-    #     n_vars, n_x, n_u, n_t, N = self.nb_vars, m.n_x, m.n_u, self.n_t, self.N
-    #     problem                  = self.problem
-
-    #     Aeq = hstack([np.zeros((n_x, (N-1)*n_x)), eye(n_x), np.zeros((n_x, n_vars-N*n_x))])
-    #     leq = problem.X_goal[0] - 5e-2
-    #     ueq = problem.X_goal[0] + 5e-2
-    #     return Aeq, leq, ueq
 
     def get_final_constraints_coeffs(self, m):
         n_vars, n_x, n_u, n_t, N = self.nb_vars, m.n_x, m.n_u, self.n_t, self.N

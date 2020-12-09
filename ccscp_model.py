@@ -41,11 +41,10 @@ default_UP_config = {
 }
 
 class CCSCPModel:
-  # wrapper of ALPaCA dynamics to provide functions for CCSCP
   def __init__(self, model, scp_config=default_scp_config,
                             UP_config=default_UP_config):
     """
-    Inputs: - model: AdaptiveDynamics (in Models) which has functions:
+    Inputs: - model: has functions:
                   - predict_mean
                   - predict_mean_linearized
 
@@ -62,9 +61,6 @@ class CCSCPModel:
     self.model = model
 
     self.final_constraint_feasible = True
-
-    # self.dt = model.dt
-    # warn('ToDo: get dt from (lin_uncert/ALPaCA/NN) model, but it is not saved from dataset yet...')
 
     # number of positional dimensions for obs. avoid.
     self.nb_pos_dim = model.nb_pos_dim

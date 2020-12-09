@@ -32,8 +32,8 @@ class CCSCPController:
   def __init__(self, model, problem, 
                      config=default_controller_config):
     """ 
-    Inputs: - model:   AdaptiveDynamics (in Models)
-            - problem: PlanningProblem  (in Core)
+    Inputs: - model
+            - problem: PlanningProblem
     """
     self.config = copy(default_controller_config)
     self.config.update(config)
@@ -51,8 +51,8 @@ class CCSCPController:
 
   def reset(self):
     self.model.reset()
-    # [xdim, T+1], [udim, T]
-    self.Xtraj, self.Utraj = None, None
+    
+    self.Xtraj, self.Utraj = None, None # [xdim, T+1], [udim, T]
 
   def incorporate_transition(self, x, u, xp):
       self.model.incorporate_transition(x,u,xp)
@@ -105,14 +105,12 @@ class CCSCPController:
         if verbose:
           print('[ccscp_controller::optimize] After re-evaluating uncertainty, Xend unfeasible.')
 
-      # return success
       return self.success
 
     else:
       # print('\n**** Returning initial trajectory ****\n')
       self.Xtraj, self.Utraj = self.ocp.get_XU_solution_CCSCP()
-      # self.Xtraj, self.Utraj = self.ocp.get_XU_initial_trajectory()
-      # print(self.Xtraj)
+
       return self.success
 
   def get_optimized_trajectory(self):
@@ -134,9 +132,3 @@ class CCSCPController:
                                            B_reuse_precomputed=B_reuse_precomputed)
     else:
       return np.zeros((0,self.model.n_u,self.model.n_x))
-
-  # def get_optimized_conf_sets(self, B_reuse_presampled_dynamics=False):
-  #   X, U, Q0          = self.Xtraj, self.Utraj, self.problem.Q0
-  #   QDs, parts, K_fbs = self.model.compute_prob_conf_sets(X, U, Q0, prob=0.9,
-  #                             B_reuse_presampled_dynamics=B_reuse_presampled_dynamics)
-  #   return QDs, parts, K_fbs
